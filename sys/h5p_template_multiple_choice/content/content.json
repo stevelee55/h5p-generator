@@ -1,0 +1,324 @@
+{
+  "interactiveVideo": {
+    "video": {
+      "startScreenOptions": {
+        "title": "Interactive Video",
+        "hideStartTitle": false
+      },
+      "textTracks": {
+        "videoTrack": [
+          {
+            "label": "Subtitles",
+            "kind": "subtitles",
+            "srcLang": "en"
+          }
+        ]
+      },
+      "files": [
+        {
+          "path": "https://www.youtube.com/watch?v=gXbThCXjZFM",
+          "mime": "video/YouTube",
+          "copyright": {
+            "license": "U"
+          }
+        }
+      ]
+
+    },
+    "assets": {
+      "interactions": [
+        {
+          "x": 47.826086956521735,
+          "y": 46.13821138211382,
+          "width": 10,
+          "height": 10,
+          "duration": {
+            "from": 46.856,
+            "to": 56.856
+          },
+          "libraryTitle": "Single Choice Set",
+          "action": {
+            "library": "H5P.SingleChoiceSet 1.11",
+            "params": {
+              "choices": [
+                {
+                  "subContentId": "06486b65-9652-41ba-9da0-c559b38a570c",
+                  "question": "<p>What does the SVD stand for?</p>\n",
+                  "answers": [
+                    "<p>Singular value decomposition</p>\n",
+                    "<p>Singularly valuable data</p>\n",
+                    "<p>So  valuable daily</p>\n"
+                  ]
+                },
+                {
+                  "subContentId": "59044c73-bc35-41fc-8594-aa69c15cae32"
+                }
+              ],
+              "overallFeedback": [
+                {
+                  "from": 0,
+                  "to": 100
+                }
+              ],
+              "behaviour": {
+                "autoContinue": true,
+                "timeoutCorrect": 2000,
+                "timeoutWrong": 3000,
+                "soundEffectsEnabled": true,
+                "enableRetry": true,
+                "enableSolutionsButton": true,
+                "passPercentage": 100
+              },
+              "l10n": {
+                "nextButtonLabel": "Next question",
+                "showSolutionButtonLabel": "Show solution",
+                "retryButtonLabel": "Retry",
+                "solutionViewTitle": "Solution list",
+                "correctText": "Correct!",
+                "incorrectText": "Incorrect!",
+                "muteButtonLabel": "Mute feedback sound",
+                "closeButtonLabel": "Close",
+                "slideOfTotal": "Slide :num of :total",
+                "scoreBarLabel": "You got :num out of :total points",
+                "solutionListQuestionNumber": "Question :num"
+              }
+            },
+            "subContentId": "38770eda-f54a-4c64-bd6a-21c85c6d010d",
+            "metadata": {
+              "contentType": "Single Choice Set",
+              "license": "U",
+              "title": "Untitled Single Choice Set"
+            }
+          },
+          "pause": true,
+          "displayType": "button",
+          "buttonOnMobile": false,
+          "adaptivity": {
+            "correct": {
+              "allowOptOut": false,
+              "message": ""
+            },
+            "wrong": {
+              "allowOptOut": false,
+              "message": ""
+            },
+            "requireCompletion": true
+          },
+          "label": ""
+        },
+        {
+          "x": 47.826086956521735,
+          "y": 46.13821138211382,
+          "width": 10,
+          "height": 10,
+          "duration": {
+            "from": 85.89,
+            "to": 95.89
+          },
+          "libraryTitle": "Multiple Choice",
+          "action": {
+            "library": "H5P.MultiChoice 1.14",
+            "params": {
+              "media": {
+                "disableImageZooming": false
+              },
+              "answers": [
+                {
+                  "correct": true,
+                  "tipsAndFeedback": {
+                    "tip": "",
+                    "chosenFeedback": "",
+                    "notChosenFeedback": ""
+                  },
+                  "text": "<div>Because I said so</div>\n"
+                },
+                {
+                  "correct": false,
+                  "tipsAndFeedback": {
+                    "tip": "",
+                    "chosenFeedback": "",
+                    "notChosenFeedback": ""
+                  },
+                  "text": "<div>Hmm..it isn't!</div>\n"
+                },
+                {
+                  "correct": true,
+                  "tipsAndFeedback": {
+                    "tip": "",
+                    "chosenFeedback": "",
+                    "notChosenFeedback": ""
+                  },
+                  "text": "<div>It is cool!</div>\n"
+                }
+              ],
+              "overallFeedback": [
+                {
+                  "from": 0,
+                  "to": 100
+                }
+              ],
+              "behaviour": {
+                "enableRetry": true,
+                "enableSolutionsButton": true,
+                "enableCheckButton": true,
+                "type": "auto",
+                "singlePoint": false,
+                "randomAnswers": true,
+                "showSolutionsRequiresInput": true,
+                "confirmCheckDialog": false,
+                "confirmRetryDialog": false,
+                "autoCheck": false,
+                "passPercentage": 100,
+                "showScorePoints": true
+              },
+              "UI": {
+                "checkAnswerButton": "Check",
+                "showSolutionButton": "Show solution",
+                "tryAgainButton": "Retry",
+                "tipsLabel": "Show tip",
+                "scoreBarLabel": "You got :num out of :total points",
+                "tipAvailable": "Tip available",
+                "feedbackAvailable": "Feedback available",
+                "readFeedback": "Read feedback",
+                "wrongAnswer": "Wrong answer",
+                "correctAnswer": "Correct answer",
+                "shouldCheck": "Should have been checked",
+                "shouldNotCheck": "Should not have been checked",
+                "noInput": "Please answer before viewing the solution"
+              },
+              "confirmCheck": {
+                "header": "Finish ?",
+                "body": "Are you sure you wish to finish ?",
+                "cancelLabel": "Cancel",
+                "confirmLabel": "Finish"
+              },
+              "confirmRetry": {
+                "header": "Retry ?",
+                "body": "Are you sure you wish to retry ?",
+                "cancelLabel": "Cancel",
+                "confirmLabel": "Confirm"
+              },
+              "question": "<p>Why is the SVD useful?</p>\n"
+            },
+            "subContentId": "0c1007ef-c74f-47fe-af64-12fb8cf5d4ff",
+            "metadata": {
+              "contentType": "Multiple Choice",
+              "license": "U",
+              "title": "Why is the SVD useful?"
+            }
+          },
+          "pause": true,
+          "displayType": "button",
+          "buttonOnMobile": false,
+          "adaptivity": {
+            "correct": {
+              "allowOptOut": false,
+              "message": ""
+            },
+            "wrong": {
+              "allowOptOut": false,
+              "message": ""
+            },
+            "requireCompletion": false
+          },
+          "label": "<p>Why is the SVD useful?</p>\n"
+        }
+      ],
+      "endscreens": [
+        {
+          "time": 404,
+          "label": "6:44 Submit screen"
+        }
+      ]
+    },
+    "summary": {
+      "task": {
+        "library": "H5P.Summary 1.10",
+        "params": {
+          "intro": "Choose the correct statement.",
+          "summaries": [
+            {
+              "subContentId": "34ca57cc-a501-4f8d-b6eb-7ba724aca967",
+              "tip": ""
+            }
+          ],
+          "overallFeedback": [
+            {
+              "from": 0,
+              "to": 100
+            }
+          ],
+          "solvedLabel": "Progress:",
+          "scoreLabel": "Wrong answers:",
+          "resultLabel": "Your result",
+          "labelCorrect": "Correct.",
+          "labelIncorrect": "Incorrect! Please try again.",
+          "alternativeIncorrectLabel": "Incorrect",
+          "labelCorrectAnswers": "Correct answers.",
+          "tipButtonLabel": "Show tip",
+          "scoreBarLabel": "You got :num out of :total points",
+          "progressText": "Progress :num of :total"
+        },
+        "subContentId": "3490903e-d28e-4daf-bd78-01ffa0d6df58",
+        "metadata": {
+          "contentType": "Summary",
+          "license": "U",
+          "title": "Untitled Summary"
+        }
+      },
+      "displayAt": 3
+    }
+  },
+  "override": {
+    "autoplay": false,
+    "loop": false,
+    "showBookmarksmenuOnLoad": false,
+    "showRewind10": false,
+    "preventSkipping": false,
+    "deactivateSound": false
+  },
+  "l10n": {
+    "interaction": "Interaction",
+    "play": "Play",
+    "pause": "Pause",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "quality": "Video Quality",
+    "captions": "Captions",
+    "close": "Close",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen",
+    "summary": "Open summary dialog",
+    "bookmarks": "Bookmarks",
+    "endscreen": "Submit screen",
+    "defaultAdaptivitySeekLabel": "Continue",
+    "continueWithVideo": "Continue with video",
+    "playbackRate": "Playback Rate",
+    "rewind10": "Rewind 10 Seconds",
+    "navDisabled": "Navigation is disabled",
+    "sndDisabled": "Sound is disabled",
+    "requiresCompletionWarning": "You need to answer all the questions correctly before continuing.",
+    "back": "Back",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "currentTime": "Current time:",
+    "totalTime": "Total time:",
+    "singleInteractionAnnouncement": "Interaction appeared:",
+    "multipleInteractionsAnnouncement": "Multiple interactions appeared.",
+    "videoPausedAnnouncement": "Video is paused",
+    "content": "Content",
+    "answered": "@answered answered",
+    "endcardTitle": "@answered Question(s) answered",
+    "endcardInformation": "You have answered @answered questions, click below to submit your answers.",
+    "endcardInformationNoAnswers": "You have not answered any questions.",
+    "endcardInformationMustHaveAnswer": "You have to answer at least one question before you can submit your answers.",
+    "endcardSubmitButton": "Submit Answers",
+    "endcardSubmitMessage": "Your answers have been submitted!",
+    "endcardTableRowAnswered": "Answered questions",
+    "endcardTableRowScore": "Score",
+    "endcardAnsweredScore": "answered",
+    "endCardTableRowSummaryWithScore": "You got @score out of @total points for the @question that appeared after @minutes minutes and @seconds seconds.",
+    "endCardTableRowSummaryWithoutScore": "You have answered the @question that appeared after @minutes minutes and @seconds seconds."
+  }
+}
