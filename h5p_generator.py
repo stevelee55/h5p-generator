@@ -32,6 +32,20 @@ def combineVideos(videos, outputDirectoryPath, outputVideoFileName):
     )
 
 
+def createContentJSON(videos):
+
+    # Import template JSON file.
+    with open("./templates/template_content.json", "r") as templateJSONFile, open("./contents/outputs/content.json", "w+") as outputJSONFile:
+        for line in templateJSONFile:
+            outputJSONFile.write(line)
+
+        templateJSONFile.close()
+        outputJSONFile.close()
+
+    return
+
+
+
 def main():
 
     # Import videos
@@ -51,11 +65,10 @@ def main():
         outputVideoFileName
     )
 
-    # Create content.json and h5p.json.
-    for video in videos:
-        print(video.filename)
-        print(video.duration)
+    # Create folders if they don't exist.
 
+    # Create content.json and h5p.json.
+    contentJSON = createContentJSON(videos)
 
 
 if __name__ == "__main__":
