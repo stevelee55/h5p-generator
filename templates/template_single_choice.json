@@ -1,0 +1,77 @@
+{
+  "x": 47.826086956521735,
+  "y": 46.13821138211382,
+  "width": 10,
+  "height": 10,
+  "duration": {
+    "from": "[REQ float]",
+    "to": "[REQ float]"
+  },
+  "libraryTitle": "Single Choice Set",
+  "action": {
+    "library": "H5P.SingleChoiceSet 1.11",
+    "params": {
+      "choices": [
+        {
+          "subContentId": "",
+          "question": "<p>[REQ] Question Title</p>\n",
+          "answers": [
+          ]
+        },
+        {
+          "subContentId": ""
+        }
+      ],
+      "overallFeedback": [
+        {
+          "from": 0,
+          "to": 100
+        }
+      ],
+      "behaviour": {
+        "autoContinue": true,
+        "timeoutCorrect": 2000,
+        "timeoutWrong": 3000,
+        "soundEffectsEnabled": true,
+        "enableRetry": true,
+        "enableSolutionsButton": true,
+        "passPercentage": 100
+      },
+      "l10n": {
+        "nextButtonLabel": "Next question",
+        "showSolutionButtonLabel": "Show solution",
+        "retryButtonLabel": "Retry",
+        "solutionViewTitle": "Solution list",
+        "correctText": "Correct!",
+        "incorrectText": "Incorrect!",
+        "muteButtonLabel": "Mute feedback sound",
+        "closeButtonLabel": "Close",
+        "slideOfTotal": "Slide :num of :total",
+        "scoreBarLabel": "You got :num out of :total points",
+        "solutionListQuestionNumber": "Question :num"
+      },
+      "question": "<p>[REQ] Question Title</p>\n"
+    },
+    "subContentId": "",
+    "metadata": {
+      "contentType": "Single Choice Set",
+      "license": "U",
+      "title": ""
+    }
+  },
+  "pause": true,
+  "displayType": "button",
+  "buttonOnMobile": false,
+  "adaptivity": {
+    "correct": {
+      "allowOptOut": false,
+      "message": ""
+    },
+    "wrong": {
+      "allowOptOut": false,
+      "message": ""
+    },
+    "requireCompletion": true
+  },
+  "label": ""
+}

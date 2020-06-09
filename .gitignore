@@ -1,4 +1,4 @@
 .DS_Store
 /env
-/test_contents
-/contents
+/test_inputs
+/dev
