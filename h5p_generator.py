@@ -1,6 +1,7 @@
 import os
 import json
 import copy
+import re
 import glob
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 
@@ -64,31 +65,34 @@ def createH5P(videos, templatesDirectoryPath, questionsDirectoryPath, outputsDir
     with open(contentTemplateFilePath, "r") as templateFile:
         contentTemplate = json.loads(templateFile.read())
 
-    # Importing config file.
-    with open(questionsFilePath, "r") as configFile:
-        videoSectionReading = False
+
+    # Creating content.json.
+    with open(questionsFilePath, "r") as questionsFile:
+
+        readingVideoSection = False
         videoTime = 0.0
         videoTimeStampForQuestions = 0.0
+
         while True:
-            # Checking if the line exists.
-            line = configFile.readline()
+            lastPosition = questionsFile.tell()
+            line = questionsFile.readline()
+            # Check if eof.
             if not line:
                 break
+
             # Read contents of the video-section, which includes video file,
             # corresponding questions, etc.
             line = line.replace("\n", "")
-            if videoSectionReading:
+            if readingVideoSection:
+                # Video section ended.
                 if "video:" in line:
-                    videoFileName = line.replace("video: ", "") # Make it less space-dependent.
-                    if videos[0].filename.replace("./contents/videos/", "") == videoFileName:
-                        videoTime += videos[0].duration
-                        videoTimeStampForQuestions = videoTime
-                        videos.pop(0)
+                    questionsFile.seek(lastPosition)
+                    readingVideoSection = False
 
-                elif "question:" in line:
-                    questionTitle = line.replace("question: ", "") # Make it less space-dependent.
-
-                    print(questionTitle)
+                # Checking if it's a question.
+                elif re.search("(\d+\.)", line):
+                    questionNumberToRemove = re.search("(\d+\.)", line).group(0)
+                    questionTitle = line.replace(questionNumberToRemove, "").strip()
 
                     singleChoiceTemplateCopy = copy.deepcopy(singleChoiceTemplate)
 
@@ -104,16 +108,21 @@ def createH5P(videos, templatesDirectoryPath, questionsDirectoryPath, outputsDir
                     singleChoiceTemplateCopy["action"]["params"]["question"] = questionTitle
                     singleChoiceTemplateCopy["label"] = questionTitle
 
+
+                # something weird here - fix it.
+                    # has to do with how the questions answers options are being added.
+
                     # Going through the question choices.
                     while True:
-                        lastPosition = configFile.tell()
-                        potentialQuestion = configFile.readline()
-                        if "question:" in potentialQuestion:
-                            # Go one backwards if next question is found.
-                            configFile.seek(lastPosition)
+                        lastPosition = questionsFile.tell()
+                        potentialQuestion = questionsFile.readline()
+                        # Go one line backwards if next question is found.
+                        if re.search("(\S+\))", potentialQuestion):
+                            questionsFile.seek(lastPosition)
                             break
-                        elif "}" in potentialQuestion:
-                            videoSectionReading = False
+                        elif "video:" in line:
+                            questionsFile.seek(lastPosition)
+                            readingVideoSection = False
                             break
                         elif "*" in potentialQuestion:
                             potentialQuestion = potentialQuestion.replace("* ", "")
@@ -122,11 +131,16 @@ def createH5P(videos, templatesDirectoryPath, questionsDirectoryPath, outputsDir
                     # Adding question object.
                     contentTemplate["interactiveVideo"]["assets"]["interactions"].append(singleChoiceTemplateCopy)
 
-                elif "}" in line:
-                    videoSectionReading = False
-
-            elif "{" in line:
-                videoSectionReading = True
+            elif "video:" in line:
+                videoFileName = line.replace("video:", "").strip()
+                firstVideoFileName = videos[0].filename.split("/")[len(videos[0].filename)-1]
+                # Checking to make sure the video we're dealing with is the
+                # correct one.
+                if firstVideoFileName == videoFileName:
+                    videoTime += videos[0].duration
+                    videoTimeStampForQuestions = videoTime
+                    videos.pop(0)
+                readingVideoSection = True
 
 
     # Creating new question-dictionaries and creating content object for every
