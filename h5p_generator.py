@@ -5,9 +5,7 @@ import glob
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 
 
-# Input: Directory path where the videos are at.
-# Output: Creates and returns video objects.
-def importVideos(videosDirectoryPath, videoFileType):
+def importVideos(videoFileType, videosDirectoryPath):
 
     videoFileNames = glob.glob(
         os.path.join(
@@ -23,30 +21,51 @@ def importVideos(videosDirectoryPath, videoFileType):
     return videos
 
 
-def combineVideos(videos, outputDirectoryPath, outputVideoFileName):
+def combineVideos(videos, outputVideoFileName, outputsDirectoryPath):
 
     finalVideo = concatenate_videoclips(videos)
     finalVideo.write_videofile(
         os.path.join(
-            outputDirectoryPath,
+            outputsDirectoryPath,
             outputVideoFileName
         )
     )
 
 
-# Create content.json contents from templates, video durations, and config.txt
-def createContentJSON(videos):
+def createH5P(videos, templatesDirectoryPath, questionsDirectoryPath, outputsDirectoryPath):
+
+    singleChoiceTemplateFileName = "template_single_choice.json"
+    singleChoiceTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        singleChoiceTemplateFileName
+    )
+    multipleChoicesTemplateFileName = "template_multiple_choices.json"
+    multipleChoicesTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        multipleChoicesTemplateFileName
+    )
+    contentTemplateFileName = "template_content.json"
+    contentTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        contentTemplateFileName
+    )
+
+    questionsFileName = "questions.txt"
+    questionsFilePath = os.path.join(
+        questionsDirectoryPath,
+        questionsFileName
+    )
 
     # Importing templates as dictionaries.
-    with open("./templates/template_single_choice.json", "r") as templateFile:
+    with open(singleChoiceTemplateFilePath, "r") as templateFile:
         singleChoiceTemplate = json.loads(templateFile.read())
-    with open("./templates/template_multiple_choices.json", "r") as templateFile:
+    with open(multipleChoicesTemplateFilePath, "r") as templateFile:
         multipleChoicesTemplate = json.loads(templateFile.read())
-    with open("./templates/template_content.json", "r") as templateFile:
+    with open(contentTemplateFilePath, "r") as templateFile:
         contentTemplate = json.loads(templateFile.read())
 
     # Importing config file.
-    with open("./contents/config.txt", "r") as configFile:
+    with open(questionsFilePath, "r") as configFile:
         videoSectionReading = False
         videoTime = 0.0
         videoTimeStampForQuestions = 0.0
@@ -121,45 +140,63 @@ def createContentJSON(videos):
 
 def main():
 
+    workingDirectory = "./"
+
     useTestData = False
     if useTestData:
         inputsDirectory = "inputs/"
     else:
         inputsDirectory = "test_inputs/"
 
-    workingDirectory = "./"
     videosDirectory = "videos/"
-    outputsDirectory = "outputs/"
     inputVideoType = "mov"
-    outputVideoName = "final_h5p_video.mp4"  # Only mp4 is supported for now.
-
     videosDirectoryPath = os.path.join(
         workingDirectory,
         inputsDirectory,
         videosDirectory
     )
 
-    outputDirectoryPath = os.path.join(
+    outputsDirectory = "outputs/"
+    outputVideoName = "final_h5p_video.mp4"  # Only mp4 is supported for now.
+    outputsDirectoryPath = os.path.join(
         workingDirectory,
         outputsDirectory
     )
 
+    templatesDirectory = "templates/"
+    templatesDirectoryPath = os.path.join(
+        workingDirectory,
+        templatesDirectory
+    )
+
+    questionsDirectory = "questions"
+    questionsDirectoryPath = os.path.join(
+        workingDirectory,
+        inputsDirectory,
+        questionsDirectory
+    )
+
     # Import videos
     videos = importVideos(
-        videosDirectoryPath=videosDirectoryPath,
-        inputVideoType=inputVideoType
+        inputVideoType=inputVideoType,
+        videosDirectoryPath=videosDirectoryPath
     )
 
     # Combine videos in to a single video.
     combineVideos(
         videos=videos,
-        outputDirectoryPath=outputDirectoryPath,
-        outputVideoFileName=outputVideoName
+        outputVideoFileName=outputVideoName,
+        outputsDirectoryPath=outputsDirectoryPath
     )
 
     # Create folders if they don't exist.
     # Create content.json and h5p.json.
-    contentJSON = createContentJSON(videos)
+    createH5P(
+        videos=videos,
+        templatesDirectoryPath=templatesDirectoryPath,
+        questionsDirectoryPath=questionsDirectoryPath,
+        outputsDirectoryPath=outputsDirectoryPath
+    )
 
 
 if __name__ == "__main__":
