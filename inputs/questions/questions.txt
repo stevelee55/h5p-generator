@@ -1,0 +1,32 @@
+
+
+video: 1.mov
+
+
+1. What is 2+3?
+a)  6
+b)  1
+*c) 5
+
+
+video: 2.mov
+
+1. Which of the following are dinosaurs?
+[ ] Woolly mammoth
+[*] Tyrannosaurus rex
+[*] Triceratops
+[ ] Smilodon fatalis
+
+2. Which symbols are "alpha"?
+[*] \alpha
+[ ] \beta
+[*] \alpha
+
+
+video: 3.mov
+
+1. Which one prints 3?
+[*] `print(3)`
+[] `print(6)`
+[ ] `print(5)`
+

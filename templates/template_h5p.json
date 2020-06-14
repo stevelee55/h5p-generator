@@ -9,6 +9,11 @@
   "defaultLanguage": "en",
   "preloadedDependencies": [
     {
+      "machineName": "H5P.QuestionSet",
+      "majorVersion": "1",
+      "minorVersion": "17"
+    },
+    {
       "machineName": "FontAwesome",
       "majorVersion": 4,
       "minorVersion": 5
