@@ -4,7 +4,95 @@ import copy
 import re
 import glob
 import shutil
+from enum import Enum
 from moviepy.editor import VideoFileClip, concatenate_videoclips
+
+
+class QuestionType(Enum):
+    SINGLE_CHOICE = 1
+    MULTIPLE_CHOICES = 2
+
+
+class Question:
+
+    question: str
+    choices: list
+    answers: list
+
+    def __init__(self, question: str, choices: list, answers: list):
+        self.question = question
+        self.choices = choices
+        self.answers = answers
+
+
+class SingleChoiceQuestion(Question):
+
+    questionType: QuestionType
+
+    def __init__(self, question: str, choices: list, answer: str):
+        self.question = question
+        self.choices = choices
+        self.answers.append(answer)
+        self.questionType = QuestionType.SINGLE_CHOICE
+
+
+class MultipleChoicesQuestion(Question):
+
+    questionType: QuestionType
+
+    def __init__(self, question: str, choices: list, answers: list):
+        self.question = question
+        self.choices = choices
+        self.answers = answers
+        self.questionType = QuestionType.MULTIPLE_CHOICES
+
+# Question set per video.
+class QuestionSet:
+
+    questions: list
+    # Could get duration of time stamp of the first question.
+
+    def __init__(self):
+        self.questions = []
+
+    def isEmpty(self):
+        return True if len(self.questions) == 0 else False
+
+
+# Interactions
+# Interaction.json
+# questionset.json
+# question-type.json
+class Content:
+
+    data: dict
+
+    def __init__(self, templateJSONFilePath: str):
+        with open(templateJSONFilePath, "r") as file:
+            self.data = json.loads(file.read())
+
+    def addQuestion(self, question: Question):
+
+        # Interaction thing depends on the time-stamp of the questions.
+
+        self.data["interactiveVideo"]["assets"]["interactions"].append(jsonifiedQuestion)
+
+
+class H5PMetaData:
+
+
+# Take care of the json things and everything.
+class H5P:
+
+    # Take data and create json files and from templates and whatnot.
+    def export(self):
+        pass
+
+    def jsonifyMCQuestion(self, mcQuestion):
+        pass
+
+    def jsonifySCQuestion(self, scQuestion):
+        pass
 
 
 def importVideos(inputVideoType, videosDirectoryPath):
@@ -314,6 +402,7 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
 
 def main():
 
+    # Creating system paths based on the local OS.
     workingDirectory = os.getcwd()
 
     useTestData = False
@@ -336,12 +425,6 @@ def main():
         templatesDirectory
     )
 
-    # Create h5p directory
-    h5pTemplateDirectory = "template_h5p_package_multiple_choice/"
-    source = os.path.join(templatesDirectoryPath, h5pTemplateDirectory)
-    destination = os.path.join(workingDirectory, "h5p/")
-    shutil.copytree(source, destination)
-
     outputsDirectory = "h5p/content/"
     outputVideoName = "final_h5p_video.mp4"  # Only mp4 is supported for now.
     outputsDirectoryPath = os.path.join(
@@ -355,6 +438,12 @@ def main():
         inputsDirectory,
         questionsDirectory
     )
+
+    # Creating h5p directory
+    h5pTemplateDirectory = "template_h5p_package_multiple_choice/"
+    source = os.path.join(templatesDirectoryPath, h5pTemplateDirectory)
+    destination = os.path.join(workingDirectory, "h5p/")
+    shutil.copytree(source, destination)
 
     # Import videos
     videos = importVideos(
@@ -373,7 +462,7 @@ def main():
     # Create content.json and h5p.json.
     createH5PContentJSON(
         videos=videos,
-        outputVideoFilePath=os.path.join("./", outputVideoName),
+        outputVideoFilePath=outputVideoFilePath,
         templatesDirectoryPath=templatesDirectoryPath,
         questionsDirectoryPath=questionsDirectoryPath,
         outputsDirectoryPath=outputsDirectoryPath
