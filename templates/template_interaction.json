@@ -1,0 +1,28 @@
+{
+  "x": 47.826086956521735,
+  "y": 46.13821138211382,
+  "width": 10,
+  "height": 10,
+  "duration": {
+    "from": 0.0,
+    "to": 1.0
+  },
+  "libraryTitle": "Question Set",
+  "action": {
+  },
+  "pause": true,
+  "displayType": "button",
+  "buttonOnMobile": false,
+  "adaptivity": {
+    "correct": {
+      "allowOptOut": false,
+      "message": ""
+    },
+    "wrong": {
+      "allowOptOut": false,
+      "message": ""
+    },
+    "requireCompletion": true
+  },
+  "label": "Question Set"
+}

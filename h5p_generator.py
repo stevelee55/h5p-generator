@@ -13,76 +13,189 @@ class QuestionType(Enum):
     MULTIPLE_CHOICES = 2
 
 
+class Choice:
+
+    text: str
+    type: bool
+
+    def __init__(self, choice: str, isCorrect: bool):
+        self.text = choice
+        self.type = isCorrect
+
+    def isCorrect(self):
+        return True if self.type == True else False
+
+
 class Question:
 
     question: str
     choices: list
-    answers: list
 
-    def __init__(self, question: str, choices: list, answers: list):
+    def __init__(self, question: str, choices: list):
         self.question = question
         self.choices = choices
-        self.answers = answers
 
 
 class SingleChoiceQuestion(Question):
 
     questionType: QuestionType
+    templatePath: str
 
-    def __init__(self, question: str, choices: list, answer: str):
+    def __init__(self, question: str, choices: list, templatePath: str):
         self.question = question
         self.choices = choices
-        self.answers.append(answer)
         self.questionType = QuestionType.SINGLE_CHOICE
+        self.templatePath = templatePath
+
+    @staticmethod
+    def convertChoicesToList(choices: list):
+        formattedChoicesList = []
+        mainTemplate = {
+            "subContentId": "",
+            "question": "<p><question-title></p>\n",
+            "answers": [
+                "<p><first-one-is-answer></p>\n",
+                "<p><other-choice></p>\n",
+                "<p><another-choice></p>\n"
+            ]
+        }
+        metaData = {
+            "subContentId": ""
+        }
+
+        mainTemplate["question"] = choice.text
+        # Rearranging choices so the answer choice is the first element.
+        correctChoice = None
+        for choice in choices:
+            if choice.isCorrect():
+                correctChoice = choice
+                choices.
+                break
+        template = "<p><choice></p>\n"
+        template["params"] = choice.text
+        template["correct"] = choice.type
+
+
+        formattedChoicesList.append(metaData)
+
+        return formattedChoicesList
+
+    def convertToDict(self):
+        with open(self.templatePath, "r") as templateFile:
+            template = json.loads(templateFile.read())
+            # Getting rid of default contents.
+            template["params"]["choices"] = self.convertChoicesToList(
+                self.choices
+            )
+
+
+            return template
 
 
 class MultipleChoicesQuestion(Question):
 
     questionType: QuestionType
+    templatePath: str
 
-    def __init__(self, question: str, choices: list, answers: list):
+    def __init__(self, question: str, choices: list):
         self.question = question
         self.choices = choices
-        self.answers = answers
         self.questionType = QuestionType.MULTIPLE_CHOICES
 
-# Question set per video.
+    @staticmethod
+    def convertChoiceToDict(choice: Choice):
+        template = {
+            "text": "<div><correct-answer-choice></div>\n",
+            "correct": False,
+            "tipsAndFeedback": {
+                "tip": "",
+                "chosenFeedback": "",
+                "notChosenFeedback": ""
+            }
+        }
+        template["text"] = choice.text
+        template["correct"] = choice.type
+
+        return template
+
+    def convertToDict(self):
+        with open(self.templatePath, "r") as templateFile:
+            template = json.loads(templateFile.read())
+
+            for choice in self.choices:
+                template["params"]["answers"].append(
+                    self.convertChoiceToDict(choice)
+                )
+
+            return template
+
+
 class QuestionSet:
+    """
+    Question set per video.
+    """
 
     questions: list
-    # Could get duration of time stamp of the first question.
+    startTime: float
+    endTime: float
+    templatePath: str
 
-    def __init__(self):
-        self.questions = []
+    def __init__(self, questions: list, startTime: float, endTime: float, templatePath: str):
+        self.questions = questions
+        self.startTime = startTime
+        self.endTime = endTime
+        self.templatePath = templatePath
 
-    def isEmpty(self):
-        return True if len(self.questions) == 0 else False
+    def convertToDict(self):
+        with open(self.templatePath, "r") as templateFile:
+            template = json.loads(templateFile.read())
+
+            for question in self.questions:
+                template["params"]["questions"].append(question.convertToDict())
+
+            return template
 
 
-# Interactions
-# Interaction.json
-# questionset.json
-# question-type.json
+# textqti parser creates questionsets and passes them to content.
 class Content:
 
-    data: dict
+    # Add more to customize more field, but for now, only do questions.
+    questionSets: list
 
-    def __init__(self, templateJSONFilePath: str):
-        with open(templateJSONFilePath, "r") as file:
-            self.data = json.loads(file.read())
+    def __init__(self):
+        self.questionSets = []
 
-    def addQuestion(self, question: Question):
+    @staticmethod
+    def convertQuestionToInteraction(questionSet: QuestionSet, interactionTemplatePath: str):
+        with open(interactionTemplatePath, "r") as templateFile:
+            interaction = json.loads(templateFile.read())
+            interaction["action"] = questionSet.convertToDict()
+            interaction["duration"]["from"] = questionSet.startTime
+            interaction["duration"]["to"] = questionSet.endTime
+            return interaction
 
-        # Interaction thing depends on the time-stamp of the questions.
+    def export(self, contentTemplatePath: str, interactionTemplatePath: str, outputFilePath: str):
+        with open(contentTemplatePath, "r") as templateFile, open(outputFilePath, "w") as outputFile:
+            content = json.loads(templateFile.read())
 
-        self.data["interactiveVideo"]["assets"]["interactions"].append(jsonifiedQuestion)
+            for questionSet in self.questionSets:
+                content["interactiveVideo"]["assets"]["interactions"].append(
+                    self.convertQuestionSetToInteraction(
+                        questionSet=questionSet,
+                        interactionTemplatePath=interactionTemplatePath
+                    )
+                )
+
+            outputFile.write(json.dumps(content))
 
 
 class H5PMetaData:
-
+    pass
 
 # Take care of the json things and everything.
 class H5P:
+
+    # This has all of the paths.
 
     # Take data and create json files and from templates and whatnot.
     def export(self):
@@ -181,12 +294,12 @@ def createQuestionObject(answerChoices):
 
 def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, questionsDirectoryPath, outputsDirectoryPath):
 
-    singleChoiceTemplateFileName = "template_single_choice.json"
+    singleChoiceTemplateFileName = "template_question_single_choice.json"
     singleChoiceTemplateFilePath = os.path.join(
         templatesDirectoryPath,
         singleChoiceTemplateFileName
     )
-    multipleChoicesTemplateFileName = "template_multiple_choices.json"
+    multipleChoicesTemplateFileName = "template_question_multiple_choices.json"
     multipleChoicesTemplateFilePath = os.path.join(
         templatesDirectoryPath,
         multipleChoicesTemplateFileName

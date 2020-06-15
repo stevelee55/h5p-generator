@@ -30,8 +30,8 @@
       ],
       "endscreens": [
         {
-          "time": "[REQ integer time in seconds] maybe",
-          "label": "6:33 maybe"
+          "time": "",
+          "label": ""
         }
       ]
     },

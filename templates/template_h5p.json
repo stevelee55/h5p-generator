@@ -1,5 +1,5 @@
 {
-  "title": "First try with an interactive video -- on SVD",
+  "title": "<h5p-interactive-video-title>",
   "language": "en",
   "mainLibrary": "H5P.InteractiveVideo",
   "embedTypes": [
@@ -8,10 +8,10 @@
   "license": "U",
   "defaultLanguage": "en",
   "preloadedDependencies": [
-    {
+  	{
       "machineName": "H5P.QuestionSet",
-      "majorVersion": "1",
-      "minorVersion": "17"
+      "majorVersion": 1,
+      "minorVersion": 17
     },
     {
       "machineName": "FontAwesome",

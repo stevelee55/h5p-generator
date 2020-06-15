@@ -1,0 +1,161 @@
+{
+  "library": "H5P.QuestionSet 1.17",
+  "params": {
+    "progressType": "textual",
+    "passPercentage": 100,
+    "questions": [
+      {
+        "params": {
+          "answers": [
+            {
+              "correct": false,
+              "text": "<div>Test</div>\n",
+              "tipsAndFeedback": {
+                "tip": "",
+                "chosenFeedback": "",
+                "notChosenFeedback": ""
+              }
+            },
+            {
+              "correct": true,
+              "text": "<div>Multiple Choice</div>\n",
+              "tipsAndFeedback": {
+                "tip": "",
+                "chosenFeedback": "",
+                "notChosenFeedback": ""
+              }
+            },
+            {
+              "correct": false,
+              "text": "<div>Question</div>\n",
+              "tipsAndFeedback": {
+                "tip": "",
+                "chosenFeedback": "",
+                "notChosenFeedback": ""
+              }
+            }
+          ],
+          "UI": {
+            "showSolutionButton": "Show solution",
+            "tryAgainButton": "Try again",
+            "checkAnswerButton": "Check"
+          },
+          "question": "<p><test-question></p>\n",
+          "behaviour": {
+            "enableRetry": true,
+            "enableSolutionsButton": true,
+            "singlePoint": true,
+            "randomAnswers": true,
+            "showSolutionsRequiresInput": true
+          },
+          "overallFeedback": [
+            {
+              "from": 0,
+              "to": 0,
+              "feedback": "Wrong!"
+            },
+            {
+              "from": 1,
+              "to": 99,
+              "feedback": "Almost!"
+            },
+            {
+              "from": 100,
+              "to": 100,
+              "feedback": "Correct!"
+            }
+          ]
+        },
+        "library": "H5P.MultiChoice 1.14",
+        "subContentId": "b9298312-0b79-4774-8ff7-a047d49afdb4",
+        "metadata": {
+          "title": "What color does the blackcurrant berry actually have?\n",
+          "license": "U"
+        }
+      },
+      {
+        "params": {
+          "questions": [
+            "<p>Test</p>\n",
+            "<p>Single Choice</p>\n",
+            "<p>Question</p>\n"
+          ],
+          "showSolutions": "Show solutions",
+          "tryAgain": "Try again",
+          "checkAnswer": "Check",
+          "notFilledOut": "Please fill in all blanks",
+          "text": "<p>Fill in the missing text about Strawberries!</p>\n",
+          "behaviour": {
+            "enableSolutionsButton": true,
+            "autoCheck": false,
+            "caseSensitive": false,
+            "showSolutionsRequiresInput": true,
+            "separateLines": false
+          },
+          "overallFeedback": [
+            {
+              "from": 0,
+              "to": 100,
+              "feedback": "You got @score of @total blanks correct."
+            }
+          ]
+        },
+        "library": "H5P.Blanks 1.12",
+        "subContentId": "ed9a5c87-548e-4ed3-bf06-490269abf1c2",
+        "metadata": {
+          "title": "<test-question-title>\n",
+          "license": "U"
+        }
+      }
+    ],
+    "introPage": {
+      "showIntroPage": true,
+      "startButtonText": "Start Quiz",
+      "introduction": "<p>Passing&nbsp;this test will certify you as a berry expert.&nbsp;</p>\n\n<p>You need 80 % correct to pass. Good luck!</p>\n",
+      "title": "Berry quiz"
+    },
+    "texts": {
+      "prevButton": "Previous",
+      "nextButton": "Next",
+      "finishButton": "Finish",
+      "textualProgress": "Question: @current of @total questions"
+    },
+    "endGame": {
+      "showResultPage": true,
+      "message": "Your result:",
+      "solutionButtonText": "Show solution",
+      "finishButtonText": "Finish",
+      "showAnimations": false,
+      "skippable": false,
+      "skipButtonText": "Skip video",
+      "overallFeedback": [
+        {
+          "from": 0,
+          "to": 100,
+          "feedback": "You got @score points of @total possible."
+        }
+      ],
+      "oldFeedback": {
+        "successGreeting": "Congratulations!",
+        "successComment": "You did very well!",
+        "failGreeting": "Oh, no!",
+        "failComment": "This didn't go so well."
+      }
+    },
+    "backgroundImage": {
+      "path": "<image-path-relative-to-content-directory>",
+      "mime": "image/jpeg",
+      "copyright": {
+        "license": "U"
+      },
+      "width": 1280,
+      "height": 972
+    }
+  },
+  "subContentId": "",
+  "metadata": {
+    "contentType": "Question Set",
+    "license": "U",
+    "title": "<question-set-title>"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "library": "H5P.SingleChoiceSet 1.11",
+  "params": {
+    "choices": [
+      {
+        "subContentId": "",
+        "question": "<p><question-title></p>\n",
+        "answers": [
+          "<p><first-one-is-answer></p>\n",
+          "<p><other-choice></p>\n",
+          "<p><another-choice></p>\n"
+        ]
+      },
+      {
+        "subContentId": ""
+      }
+    ],
+    "overallFeedback": [
+      {
+        "from": 0,
+        "to": 100
+      }
+    ],
+    "behaviour": {
+      "autoContinue": true,
+      "timeoutCorrect": 2000,
+      "timeoutWrong": 3000,
+      "soundEffectsEnabled": true,
+      "enableRetry": true,
+      "enableSolutionsButton": true,
+      "passPercentage": 100
+    },
+    "l10n": {
+      "nextButtonLabel": "Next question",
+      "showSolutionButtonLabel": "Show solution",
+      "retryButtonLabel": "Retry",
+      "solutionViewTitle": "Solution list",
+      "correctText": "Correct!",
+      "incorrectText": "Incorrect!",
+      "muteButtonLabel": "Mute feedback sound",
+      "closeButtonLabel": "Close",
+      "slideOfTotal": "Slide :num of :total",
+      "scoreBarLabel": "You got :num out of :total points",
+      "solutionListQuestionNumber": "Question :num"
+    },
+    "question": "<p><question-title></p>\n"
+  },
+  "subContentId": "",
+  "metadata": {
+    "contentType": "Single Choice Question",
+    "license": "U",
+    "title": "<question-title>"
+  }
+}
