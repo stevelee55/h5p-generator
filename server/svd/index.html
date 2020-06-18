@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../h5p-lib/main.bundle.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  console.log("onblarn");
+  const options = {
+    frameJs: "../h5p-lib/frame.bundle.js",
+    frameCss: "../h5p-lib/styles/h5p.css",
+  };
+  const pathname = window.location.pathname;
+  const h5pPath = pathname + (pathname.endsWith("/") ? "" : "/") + "h5p";
+  new H5PStandalone.H5P(document.querySelector("#main"), h5pPath, options); 
+});
+</script>
+</head>
+<body>
+<div id="main" />
+</body>
+</html>
