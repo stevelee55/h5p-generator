@@ -14,7 +14,6 @@ class QuestionType(Enum):
 
 
 class Choice:
-
     text: str
     type: bool
 
@@ -23,11 +22,10 @@ class Choice:
         self.type = isCorrect
 
     def isCorrect(self):
-        return True if self.type == True else False
+        return True if self.type else False
 
 
 class Question:
-
     question: str
     choices: list
 
@@ -37,7 +35,6 @@ class Question:
 
 
 class SingleChoiceQuestion(Question):
-
     questionType: QuestionType
     templatePath: str
 
@@ -48,7 +45,7 @@ class SingleChoiceQuestion(Question):
         self.templatePath = templatePath
 
     @staticmethod
-    def convertChoicesToList(choices: list):
+    def convertChoicesToList(question: str, choices: list):
         formattedChoicesList = []
         mainTemplate = {
             "subContentId": "",
@@ -63,19 +60,26 @@ class SingleChoiceQuestion(Question):
             "subContentId": ""
         }
 
-        mainTemplate["question"] = choice.text
+        mainTemplate["question"] = question
+
         # Rearranging choices so the answer choice is the first element.
         correctChoice = None
         for choice in choices:
             if choice.isCorrect():
-                correctChoice = choice
-                choices.
+                # Taking the correction choice and moving it to the index 0
+                # of the choices list.
+                choices.insert(0, choices.pop(choices.index(choice)))
                 break
-        template = "<p><choice></p>\n"
-        template["params"] = choice.text
-        template["correct"] = choice.type
 
+        # Creating a list of choices in template format.
+        formattedChoices = []
+        for choice in choices:
+            choiceTemplate = "<p>{}</p>\n"
+            formattedChoices.append(choiceTemplate.format(choice.text))
 
+        mainTemplate["answers"] = formattedChoices
+
+        formattedChoicesList.append(mainTemplate)
         formattedChoicesList.append(metaData)
 
         return formattedChoicesList
@@ -83,17 +87,20 @@ class SingleChoiceQuestion(Question):
     def convertToDict(self):
         with open(self.templatePath, "r") as templateFile:
             template = json.loads(templateFile.read())
-            # Getting rid of default contents.
+            template["params"]["question"] = "<p>{}</p>\n".format(
+                self.question)
+            # Getting rid of default contents by replacing the whole thing.
+            # Also need to pass in the "question" because of the formatting
+            # of the template.
             template["params"]["choices"] = self.convertChoicesToList(
+                self.question,
                 self.choices
             )
-
 
             return template
 
 
 class MultipleChoicesQuestion(Question):
-
     questionType: QuestionType
     templatePath: str
 
@@ -140,7 +147,8 @@ class QuestionSet:
     endTime: float
     templatePath: str
 
-    def __init__(self, questions: list, startTime: float, endTime: float, templatePath: str):
+    def __init__(self, questions: list, startTime: float, endTime: float,
+                 templatePath: str):
         self.questions = questions
         self.startTime = startTime
         self.endTime = endTime
@@ -151,14 +159,14 @@ class QuestionSet:
             template = json.loads(templateFile.read())
 
             for question in self.questions:
-                template["params"]["questions"].append(question.convertToDict())
+                template["params"]["questions"].append(
+                    question.convertToDict())
 
             return template
 
 
 # textqti parser creates questionsets and passes them to content.
 class Content:
-
     # Add more to customize more field, but for now, only do questions.
     questionSets: list
 
@@ -166,7 +174,8 @@ class Content:
         self.questionSets = []
 
     @staticmethod
-    def convertQuestionToInteraction(questionSet: QuestionSet, interactionTemplatePath: str):
+    def convertQuestionToInteraction(questionSet: QuestionSet,
+                                     interactionTemplatePath: str):
         with open(interactionTemplatePath, "r") as templateFile:
             interaction = json.loads(templateFile.read())
             interaction["action"] = questionSet.convertToDict()
@@ -174,8 +183,10 @@ class Content:
             interaction["duration"]["to"] = questionSet.endTime
             return interaction
 
-    def export(self, contentTemplatePath: str, interactionTemplatePath: str, outputFilePath: str):
-        with open(contentTemplatePath, "r") as templateFile, open(outputFilePath, "w") as outputFile:
+    def export(self, contentTemplatePath: str, interactionTemplatePath: str,
+               outputFilePath: str):
+        with open(contentTemplatePath, "r") as templateFile, open(
+                outputFilePath, "w") as outputFile:
             content = json.loads(templateFile.read())
 
             for questionSet in self.questionSets:
@@ -191,6 +202,7 @@ class Content:
 
 class H5PMetaData:
     pass
+
 
 # Take care of the json things and everything.
 class H5P:
@@ -209,7 +221,6 @@ class H5P:
 
 
 def importVideos(inputVideoType, videosDirectoryPath):
-
     videoFileNames = glob.glob(
         os.path.join(
             videosDirectoryPath,
@@ -233,8 +244,8 @@ def combineVideos(videos, outputVideoFileName, outputsDirectoryPath):
     finalVideo.write_videofile(outputVideoFilePath)
     return outputVideoFilePath
 
-def createQuestionObject(answerChoices):
 
+def createQuestionObject(answerChoices):
     # Go through the answer choices to organize answers and determine the type
     # of the question.
     numberOfCorrectAnswers = 0
@@ -255,11 +266,11 @@ def createQuestionObject(answerChoices):
         correctAnswerChoiceIndex = correctAnswersIndices[0]
         correctAnswersIndices.pop()
 
-        answerChoices = ["<p>{}</p>\n".format(answerChoice["choice"]) for answerChoice in answerChoices]
+        answerChoices = ["<p>{}</p>\n".format(answerChoice["choice"]) for
+                         answerChoice in answerChoices]
 
         correctAnswerChoice = answerChoices[correctAnswerChoiceIndex]
         answerChoices.pop(correctAnswerChoiceIndex)
-
 
         questionObject.append(correctAnswerChoice)
         questionObject += answerChoices
@@ -286,14 +297,17 @@ def createQuestionObject(answerChoices):
             answerObjectTemplateCopy = copy.deepcopy(answerObjectTemplate)
             if answerChoice["isAnswer"]:
                 answerObjectTemplateCopy["correct"] = True
-            answerObjectTemplateCopy["text"] = "<div>{}</div>\n".format(answerChoice["choice"]) # Really should rename this to "answer choice" or something.
+            answerObjectTemplateCopy["text"] = "<div>{}</div>\n".format(
+                answerChoice[
+                    "choice"])  # Really should rename this to "answer choice" or something.
 
             questionObject.append(answerObjectTemplateCopy)
 
     return questionType, questionObject
 
-def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, questionsDirectoryPath, outputsDirectoryPath):
 
+def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath,
+                         questionsDirectoryPath, outputsDirectoryPath):
     singleChoiceTemplateFileName = "template_question_single_choice.json"
     singleChoiceTemplateFilePath = os.path.join(
         templatesDirectoryPath,
@@ -324,7 +338,6 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
     with open(contentTemplateFilePath, "r") as templateFile:
         contentTemplate = json.loads(templateFile.read())
 
-
     # Creating content.json.
     with open(questionsFilePath, "r") as questionsFile:
 
@@ -351,7 +364,9 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
 
                 # Storing arguments for a given question.
                 elif "@" in line:
-                    argumentObject = line.replace("@", "").replace(" ","").split("=")
+                    argumentObject = line.replace("@", "").replace(" ",
+                                                                   "").split(
+                        "=")
                     argumentType = argumentObject[0]
                     argument = argumentObject[1]
 
@@ -362,8 +377,10 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
 
                 # Checking if it's a question.
                 elif re.search("(\d+\.)", line):
-                    questionNumberToRemove = re.search("(\d+\.)", line).group(0)
-                    questionTitle = line.replace(questionNumberToRemove, "").strip()
+                    questionNumberToRemove = re.search("(\d+\.)", line).group(
+                        0)
+                    questionTitle = line.replace(questionNumberToRemove,
+                                                 "").strip()
 
                     # Going through the question choices.
                     answerChoices = []
@@ -374,11 +391,12 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                         # Check if eof.
                         if not potentialQuestionChoice:
                             break
-                        potentialQuestionChoice = potentialQuestionChoice.replace("\n", "")
-
+                        potentialQuestionChoice = potentialQuestionChoice.replace(
+                            "\n", "")
 
                         # Saving choices.
-                        if re.search("([\[ \S]+[\]\)])", potentialQuestionChoice):
+                        if re.search("([\[ \S]+[\]\)])",
+                                     potentialQuestionChoice):
                             # Marked "choice": some-value and "isAnswer": Boolean
                             answerChoice = {}
 
@@ -394,7 +412,8 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                                 potentialQuestionChoice
                             ).group(0)
 
-                            answerChoice["choice"] = potentialQuestionChoice.replace(
+                            answerChoice[
+                                "choice"] = potentialQuestionChoice.replace(
                                 answerChoiceOptionValueToRemove,
                                 ""
                             ).strip()
@@ -437,7 +456,8 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                                 # Adding end time.
                                 videoTimeStampForQuestions += 0.1
                                 if "time" in questionArguments:
-                                    videoTimeStampForQuestions += float(questionArguments["time"])
+                                    videoTimeStampForQuestions += float(
+                                        questionArguments["time"])
                                 questionTemplateCopy["duration"][
                                     "to"] = videoTimeStampForQuestions
 
@@ -450,7 +470,8 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                                     "label"] = questionTitle
 
                                 # Adding question.
-                                questionTemplateCopy["action"]["params"]["choices"][0]["answers"] = questionObject
+                                questionTemplateCopy["action"]["params"][
+                                    "choices"][0]["answers"] = questionObject
 
                             elif questionType == "multiple":
 
@@ -465,7 +486,8 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                                 # Adding end time.
                                 videoTimeStampForQuestions += 0.1
                                 if "time" in questionArguments:
-                                    videoTimeStampForQuestions += float(questionArguments["time"])
+                                    videoTimeStampForQuestions += float(
+                                        questionArguments["time"])
                                 questionTemplateCopy["duration"][
                                     "to"] = videoTimeStampForQuestions
 
@@ -476,14 +498,16 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
                                     "label"] = questionTitle
 
                                 # Adding question.
-                                questionTemplateCopy["action"]["params"]["answers"] = questionObject
+                                questionTemplateCopy["action"]["params"][
+                                    "answers"] = questionObject
 
                             else:
                                 print(questionType)
                                 exit("This question type isn't supported.")
                             break
                     # Adding question object.
-                    contentTemplate["interactiveVideo"]["assets"]["interactions"].append(questionTemplateCopy)
+                    contentTemplate["interactiveVideo"]["assets"][
+                        "interactions"].append(questionTemplateCopy)
                     questionArguments = {}
 
             elif "video:" in line:
@@ -502,19 +526,21 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath, qu
     # files(path
     # mime)
 
-    contentTemplate["interactiveVideo"]["video"]["files"][0]["path"] = outputVideoFilePath
-    contentTemplate["interactiveVideo"]["video"]["files"][0]["mime"] = "video/mp4"
+    contentTemplate["interactiveVideo"]["video"]["files"][0][
+        "path"] = outputVideoFilePath
+    contentTemplate["interactiveVideo"]["video"]["files"][0][
+        "mime"] = "video/mp4"
     # Add video path.
 
     # Creating new question-dictionaries and creating content object for every
     # video
     outputJSONObject = json.dumps(contentTemplate)
-    with open(os.path.join(outputsDirectoryPath, "content.json"), "w") as outputJSONFile:
+    with open(os.path.join(outputsDirectoryPath, "content.json"),
+              "w") as outputJSONFile:
         outputJSONFile.write(outputJSONObject)
 
 
 def main():
-
     # Creating system paths based on the local OS.
     workingDirectory = os.getcwd()
 
@@ -582,7 +608,6 @@ def main():
     )
 
     # Create h5p.json.
-
 
     # Zip h5p directory
 
