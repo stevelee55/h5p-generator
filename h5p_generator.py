@@ -63,7 +63,6 @@ class SingleChoiceQuestion(Question):
         mainTemplate["question"] = question
 
         # Rearranging choices so the answer choice is the first element.
-        correctChoice = None
         for choice in choices:
             if choice.isCorrect():
                 # Taking the correction choice and moving it to the index 0
@@ -96,7 +95,6 @@ class SingleChoiceQuestion(Question):
                 self.question,
                 self.choices
             )
-
             return template
 
 
@@ -170,8 +168,8 @@ class Content:
     # Add more to customize more field, but for now, only do questions.
     questionSets: list
 
-    def __init__(self):
-        self.questionSets = []
+    def __init__(self, questionSets: list):
+        self.questionSets = questionSets
 
     @staticmethod
     def convertQuestionToInteraction(questionSet: QuestionSet,
@@ -183,12 +181,12 @@ class Content:
             interaction["duration"]["to"] = questionSet.endTime
             return interaction
 
-    def export(self, contentTemplatePath: str, interactionTemplatePath: str,
-               outputFilePath: str):
+    def export(self, outputFileName: str, contentTemplatePath: str, interactionTemplatePath: str,
+               outputsDirectoryPath: str, videoSource: str):
+        outputFilePath = os.path.join(outputsDirectoryPath, outputFileName)
         with open(contentTemplatePath, "r") as templateFile, open(
                 outputFilePath, "w") as outputFile:
             content = json.loads(templateFile.read())
-
             for questionSet in self.questionSets:
                 content["interactiveVideo"]["assets"]["interactions"].append(
                     self.convertQuestionSetToInteraction(
@@ -196,28 +194,60 @@ class Content:
                         interactionTemplatePath=interactionTemplatePath
                     )
                 )
+            # Setting video source.
+            content["interactiveVideo"]["video"]["files"][0]["path"] = videoSource
+            mime = "video/mp4" if ".mp4" in videoSource else "video/YouTube"
+            content["interactiveVideo"]["video"]["files"][0]["mime"] = mime
 
             outputFile.write(json.dumps(content))
 
 
 class H5PMetaData:
-    pass
+    title: str
+
+    def __init__(self, title: str):
+        self.title = title
+
+    def export(self, outputFileName: str, h5pMetaDataTemplatePath: str, outputsDirectoryPath: str):
+        outputFilePath = os.path.join(outputsDirectoryPath, outputFileName)
+        with open(h5pMetaDataTemplatePath, "r") as templateFile, open(
+                outputFilePath, "w") as outputFile:
+            h5pMetaData = json.loads(templateFile.read())
+            h5pMetaData["title"] = self.title
+            outputFile.write(json.dumps(h5pMetaData))
 
 
 # Take care of the json things and everything.
 class H5P:
+    contentTemplatePath: str
+    interactionTemplatePath: str
+    h5pMetaDataTemplatePath: str
+    outputsDirectoryPath: str
+    videoSource: str
 
-    # This has all of the paths.
+    def __init__(self, contentTemplatePath: str, interactionTemplatePath: str,
+                 h5pMetaDataTemplatePath: str, outputsDirectoryPath: str,
+                 videoSource: str):
+        self.contentTemplatePath = contentTemplatePath
+        self.interactionTemplatePath = interactionTemplatePath
+        self.h5pMetaDataTemplatePath = h5pMetaDataTemplatePath
+        self.outputsDirectoryPath = outputsDirectoryPath
+        self.videoSource = videoSource
 
     # Take data and create json files and from templates and whatnot.
-    def export(self):
-        pass
-
-    def jsonifyMCQuestion(self, mcQuestion):
-        pass
-
-    def jsonifySCQuestion(self, scQuestion):
-        pass
+    def export(self, content: Content, h5pMetaData: H5PMetaData):
+        content.export(
+            outputFileName="content.json",
+            contentTemplatePath=self.contentTemplatePath,
+            interactionTemplatePath=self.interactionTemplatePath,
+            outputsDirectoryPath=self.outputsDirectoryPath,
+            videoSource=self.videoSource
+        )
+        h5pMetaData.export(
+            outputFileName="h5p.json",
+            h5pMetaDataTemplatePath=self.h5pMetaDataTemplatePath,
+            outputsDirectoryPath=self.outputsDirectoryPath
+        )
 
 
 def importVideos(inputVideoType, videosDirectoryPath):
@@ -306,8 +336,7 @@ def createQuestionObject(answerChoices):
     return questionType, questionObject
 
 
-def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath,
-                         questionsDirectoryPath, outputsDirectoryPath):
+def createH5PContentJSON(videos, templatesDirectoryPath, questionsDirectoryPath):
     singleChoiceTemplateFileName = "template_question_single_choice.json"
     singleChoiceTemplateFilePath = os.path.join(
         templatesDirectoryPath,
@@ -520,27 +549,12 @@ def createH5PContentJSON(videos, outputVideoFilePath, templatesDirectoryPath,
                     videoTimeStampForQuestions = videoTime
                     videos.pop(0)
                 readingVideoSection = True
-    #
-    # {interactiveVideo
-    # video
-    # files(path
-    # mime)
 
-    contentTemplate["interactiveVideo"]["video"]["files"][0][
-        "path"] = outputVideoFilePath
-    contentTemplate["interactiveVideo"]["video"]["files"][0][
-        "mime"] = "video/mp4"
-    # Add video path.
 
-    # Creating new question-dictionaries and creating content object for every
-    # video
-    outputJSONObject = json.dumps(contentTemplate)
-    with open(os.path.join(outputsDirectoryPath, "content.json"),
-              "w") as outputJSONFile:
-        outputJSONFile.write(outputJSONObject)
 
 
 def main():
+    # Directories.
     # Creating system paths based on the local OS.
     workingDirectory = os.getcwd()
 
@@ -578,7 +592,26 @@ def main():
         questionsDirectory
     )
 
-    # Creating h5p directory
+    # Templates.
+    interactionTemplateFileName = "template_interaction.json"
+    interactionTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        interactionTemplateFileName
+    )
+
+    contentTemplateFileName = "template_content.json"
+    contentTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        contentTemplateFileName
+    )
+
+    h5pMetaDataTemplateFileName = "template_h5p.json"
+    h5pMetaDataTemplateFilePath = os.path.join(
+        templatesDirectoryPath,
+        h5pMetaDataTemplateFileName
+    )
+
+    # Creating h5p directory.
     h5pTemplateDirectory = "template_h5p_package_multiple_choice/"
     source = os.path.join(templatesDirectoryPath, h5pTemplateDirectory)
     destination = os.path.join(workingDirectory, "h5p/")
@@ -597,9 +630,15 @@ def main():
         outputsDirectoryPath=outputsDirectoryPath
     )
 
+    h5p = H5P(contentTemplatePath=contentTemplateFilePath,
+              interactionTemplatePath=interactionTemplateFilePath,
+              h5pMetaDataTemplatePath=h5pMetaDataTemplateFilePath,
+              outputsDirectoryPath=outputsDirectoryPath,
+              videoSource=outputVideoFilePath)
+
     # Create folders if they don't exist.
     # Create content.json and h5p.json.
-    createH5PContentJSON(
+    questionSets = createQuestionSetsFrom(
         videos=videos,
         outputVideoFilePath=outputVideoFilePath,
         templatesDirectoryPath=templatesDirectoryPath,
@@ -607,7 +646,10 @@ def main():
         outputsDirectoryPath=outputsDirectoryPath
     )
 
-    # Create h5p.json.
+    h5pTitle = "Raj Nadakuditi's Lecture"
+    h5pMetaData = H5PMetaData(title=h5pTitle)
+    content = Content(questionSets=questionSets)
+    h5p.export(content=content, h5pMetaData=h5pMetaData)
 
     # Zip h5p directory
 
