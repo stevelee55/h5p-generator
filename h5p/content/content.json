@@ -16,7 +16,7 @@
       },
       "files": [
         {
-          "path": "./final_h5p_video.mp4",
+          "path": "/Users/steve.lee/Desktop/personal/raj/h5p-generator/h5p/content/final_h5p_video.mp4",
           "mime": "video/mp4",
           "copyright": {
             "license": "U"
@@ -33,61 +33,222 @@
           "height": 10,
           "duration": {
             "from": 10.0,
-            "to": 10.0
+            "to": 12.0
           },
-          "libraryTitle": "Single Choice Set",
+          "libraryTitle": "Question Set",
           "action": {
-            "library": "H5P.SingleChoiceSet 1.11",
+            "library": "H5P.QuestionSet 1.17",
             "params": {
-              "choices": [
+              "progressType": "textual",
+              "passPercentage": 100,
+              "questions": [
                 {
-                  "subContentId": "",
-                  "question": "What is 2+3?",
-                  "answers": [
-                    "<p>5</p>\n",
-                    "<p>6</p>\n",
-                    "<p>1</p>\n"
-                  ]
+                  "params": {
+                    "answers": [
+                      {
+                        "correct": false,
+                        "text": "<div>Test</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": true,
+                        "text": "<div>Multiple Choice</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": false,
+                        "text": "<div>Question</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      }
+                    ],
+                    "UI": {
+                      "showSolutionButton": "Show solution",
+                      "tryAgainButton": "Try again",
+                      "checkAnswerButton": "Check"
+                    },
+                    "question": "<p><test-question></p>\n",
+                    "behaviour": {
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "singlePoint": true,
+                      "randomAnswers": true,
+                      "showSolutionsRequiresInput": true
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 0,
+                        "feedback": "Wrong!"
+                      },
+                      {
+                        "from": 1,
+                        "to": 99,
+                        "feedback": "Almost!"
+                      },
+                      {
+                        "from": 100,
+                        "to": 100,
+                        "feedback": "Correct!"
+                      }
+                    ]
+                  },
+                  "library": "H5P.MultiChoice 1.14",
+                  "subContentId": "b9298312-0b79-4774-8ff7-a047d49afdb4",
+                  "metadata": {
+                    "title": "What color does the blackcurrant berry actually have?\n",
+                    "license": "U"
+                  }
                 },
                 {
-                  "subContentId": ""
-                }
-              ],
-              "overallFeedback": [
+                  "params": {
+                    "questions": [
+                      "<p>Test</p>\n",
+                      "<p>Single Choice</p>\n",
+                      "<p>Question</p>\n"
+                    ],
+                    "showSolutions": "Show solutions",
+                    "tryAgain": "Try again",
+                    "checkAnswer": "Check",
+                    "notFilledOut": "Please fill in all blanks",
+                    "text": "<p>Fill in the missing text about Strawberries!</p>\n",
+                    "behaviour": {
+                      "enableSolutionsButton": true,
+                      "autoCheck": false,
+                      "caseSensitive": false,
+                      "showSolutionsRequiresInput": true,
+                      "separateLines": false
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100,
+                        "feedback": "You got @score of @total blanks correct."
+                      }
+                    ]
+                  },
+                  "library": "H5P.Blanks 1.12",
+                  "subContentId": "ed9a5c87-548e-4ed3-bf06-490269abf1c2",
+                  "metadata": {
+                    "title": "<test-question-title>\n",
+                    "license": "U"
+                  }
+                },
                 {
-                  "from": 0,
-                  "to": 100
+                  "library": "H5P.SingleChoiceSet 1.11",
+                  "params": {
+                    "choices": [
+                      {
+                        "subContentId": "",
+                        "question": "What is 2+3?",
+                        "answers": [
+                          "<p>5</p>\n",
+                          "<p>6</p>\n",
+                          "<p>1</p>\n"
+                        ]
+                      },
+                      {
+                        "subContentId": ""
+                      }
+                    ],
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100
+                      }
+                    ],
+                    "behaviour": {
+                      "autoContinue": true,
+                      "timeoutCorrect": 2000,
+                      "timeoutWrong": 3000,
+                      "soundEffectsEnabled": true,
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "passPercentage": 100
+                    },
+                    "l10n": {
+                      "nextButtonLabel": "Next question",
+                      "showSolutionButtonLabel": "Show solution",
+                      "retryButtonLabel": "Retry",
+                      "solutionViewTitle": "Solution list",
+                      "correctText": "Correct!",
+                      "incorrectText": "Incorrect!",
+                      "muteButtonLabel": "Mute feedback sound",
+                      "closeButtonLabel": "Close",
+                      "slideOfTotal": "Slide :num of :total",
+                      "scoreBarLabel": "You got :num out of :total points",
+                      "solutionListQuestionNumber": "Question :num"
+                    },
+                    "question": "<p>What is 2+3?</p>\n"
+                  },
+                  "subContentId": "",
+                  "metadata": {
+                    "contentType": "Single Choice Question",
+                    "license": "U",
+                    "title": "<question-title>"
+                  }
                 }
               ],
-              "behaviour": {
-                "autoContinue": true,
-                "timeoutCorrect": 2000,
-                "timeoutWrong": 3000,
-                "soundEffectsEnabled": true,
-                "enableRetry": true,
-                "enableSolutionsButton": true,
-                "passPercentage": 100
+              "introPage": {
+                "showIntroPage": true,
+                "startButtonText": "Start Quiz",
+                "introduction": "<p>Passing&nbsp;this test will certify you as a berry expert.&nbsp;</p>\n\n<p>You need 80 % correct to pass. Good luck!</p>\n",
+                "title": "Berry quiz"
               },
-              "l10n": {
-                "nextButtonLabel": "Next question",
-                "showSolutionButtonLabel": "Show solution",
-                "retryButtonLabel": "Retry",
-                "solutionViewTitle": "Solution list",
-                "correctText": "Correct!",
-                "incorrectText": "Incorrect!",
-                "muteButtonLabel": "Mute feedback sound",
-                "closeButtonLabel": "Close",
-                "slideOfTotal": "Slide :num of :total",
-                "scoreBarLabel": "You got :num out of :total points",
-                "solutionListQuestionNumber": "Question :num"
+              "texts": {
+                "prevButton": "Previous",
+                "nextButton": "Next",
+                "finishButton": "Finish",
+                "textualProgress": "Question: @current of @total questions"
               },
-              "question": "What is 2+3?"
+              "endGame": {
+                "showResultPage": true,
+                "message": "Your result:",
+                "solutionButtonText": "Show solution",
+                "finishButtonText": "Finish",
+                "showAnimations": false,
+                "skippable": false,
+                "skipButtonText": "Skip video",
+                "overallFeedback": [
+                  {
+                    "from": 0,
+                    "to": 100,
+                    "feedback": "You got @score points of @total possible."
+                  }
+                ],
+                "oldFeedback": {
+                  "successGreeting": "Congratulations!",
+                  "successComment": "You did very well!",
+                  "failGreeting": "Oh, no!",
+                  "failComment": "This didn't go so well."
+                }
+              },
+              "backgroundImage": {
+                "path": "<image-path-relative-to-content-directory>",
+                "mime": "image/jpeg",
+                "copyright": {
+                  "license": "U"
+                },
+                "width": 1280,
+                "height": 972
+              }
             },
             "subContentId": "",
             "metadata": {
-              "contentType": "Single Choice Set",
+              "contentType": "Question Set",
               "license": "U",
-              "title": ""
+              "title": "<question-set-title>"
             }
           },
           "pause": true,
@@ -104,7 +265,7 @@
             },
             "requireCompletion": true
           },
-          "label": "What is 2+3?"
+          "label": "Question Set"
         },
         {
           "x": 47.826086956521735,
@@ -112,108 +273,402 @@
           "width": 10,
           "height": 10,
           "duration": {
-            "from": 20.0,
-            "to": 20.0
+            "from": 22.0,
+            "to": 24.0
           },
-          "libraryTitle": "Multiple Choice",
+          "libraryTitle": "Question Set",
           "action": {
-            "library": "H5P.MultiChoice 1.14",
+            "library": "H5P.QuestionSet 1.17",
             "params": {
-              "media": {
-                "disableImageZooming": false
-              },
-              "answers": [
+              "progressType": "textual",
+              "passPercentage": 100,
+              "questions": [
                 {
-                  "correct": false,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
+                  "params": {
+                    "answers": [
+                      {
+                        "correct": false,
+                        "text": "<div>Test</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": true,
+                        "text": "<div>Multiple Choice</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": false,
+                        "text": "<div>Question</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      }
+                    ],
+                    "UI": {
+                      "showSolutionButton": "Show solution",
+                      "tryAgainButton": "Try again",
+                      "checkAnswerButton": "Check"
+                    },
+                    "question": "<p><test-question></p>\n",
+                    "behaviour": {
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "singlePoint": true,
+                      "randomAnswers": true,
+                      "showSolutionsRequiresInput": true
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 0,
+                        "feedback": "Wrong!"
+                      },
+                      {
+                        "from": 1,
+                        "to": 99,
+                        "feedback": "Almost!"
+                      },
+                      {
+                        "from": 100,
+                        "to": 100,
+                        "feedback": "Correct!"
+                      }
+                    ]
                   },
-                  "text": "<div>Woolly mammoth</div>\n"
+                  "library": "H5P.MultiChoice 1.14",
+                  "subContentId": "b9298312-0b79-4774-8ff7-a047d49afdb4",
+                  "metadata": {
+                    "title": "What color does the blackcurrant berry actually have?\n",
+                    "license": "U"
+                  }
                 },
                 {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
+                  "params": {
+                    "questions": [
+                      "<p>Test</p>\n",
+                      "<p>Single Choice</p>\n",
+                      "<p>Question</p>\n"
+                    ],
+                    "showSolutions": "Show solutions",
+                    "tryAgain": "Try again",
+                    "checkAnswer": "Check",
+                    "notFilledOut": "Please fill in all blanks",
+                    "text": "<p>Fill in the missing text about Strawberries!</p>\n",
+                    "behaviour": {
+                      "enableSolutionsButton": true,
+                      "autoCheck": false,
+                      "caseSensitive": false,
+                      "showSolutionsRequiresInput": true,
+                      "separateLines": false
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100,
+                        "feedback": "You got @score of @total blanks correct."
+                      }
+                    ]
                   },
-                  "text": "<div>Tyrannosaurus rex</div>\n"
+                  "library": "H5P.Blanks 1.12",
+                  "subContentId": "ed9a5c87-548e-4ed3-bf06-490269abf1c2",
+                  "metadata": {
+                    "title": "<test-question-title>\n",
+                    "license": "U"
+                  }
                 },
                 {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
-                  },
-                  "text": "<div>Triceratops</div>\n"
+                  "library": "H5P.MultiChoice 1.14",
+                  "params": {
+                    "media": {
+                      "disableImageZooming": false
+                    },
+                    "answers": [
+                      {
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><correct-answer-choice></div>\n"
+                      },
+                      {
+                        "correct": false,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><other-answer-choice></div>\n"
+                      },
+                      {
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><another-correct-answer-choice></div>\n"
+                      },
+                      {
+                        "text": "Woolly mammoth",
+                        "correct": false,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "text": "Tyrannosaurus rex",
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "text": "Triceratops",
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "text": "Smilodon fatalis",
+                        "correct": false,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      }
+                    ],
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100
+                      }
+                    ],
+                    "behaviour": {
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "enableCheckButton": true,
+                      "type": "auto",
+                      "singlePoint": false,
+                      "randomAnswers": true,
+                      "showSolutionsRequiresInput": true,
+                      "confirmCheckDialog": false,
+                      "confirmRetryDialog": false,
+                      "autoCheck": false,
+                      "passPercentage": 100,
+                      "showScorePoints": true
+                    },
+                    "UI": {
+                      "checkAnswerButton": "Check",
+                      "showSolutionButton": "Show solution",
+                      "tryAgainButton": "Retry",
+                      "tipsLabel": "Show tip",
+                      "scoreBarLabel": "You got :num out of :total points",
+                      "tipAvailable": "Tip available",
+                      "feedbackAvailable": "Feedback available",
+                      "readFeedback": "Read feedback",
+                      "wrongAnswer": "Wrong answer",
+                      "correctAnswer": "Correct answer",
+                      "shouldCheck": "Should have been checked",
+                      "shouldNotCheck": "Should not have been checked",
+                      "noInput": "Please answer before viewing the solution"
+                    },
+                    "confirmCheck": {
+                      "header": "Finish ?",
+                      "body": "Are you sure you wish to finish ?",
+                      "cancelLabel": "Cancel",
+                      "confirmLabel": "Finish"
+                    },
+                    "confirmRetry": {
+                      "header": "Retry ?",
+                      "body": "Are you sure you wish to retry ?",
+                      "cancelLabel": "Cancel",
+                      "confirmLabel": "Confirm"
+                    },
+                    "question": "<p><question-title></p>\n"
+                  }
                 },
                 {
-                  "correct": false,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
-                  },
-                  "text": "<div>Smilodon fatalis</div>\n"
+                  "library": "H5P.MultiChoice 1.14",
+                  "params": {
+                    "media": {
+                      "disableImageZooming": false
+                    },
+                    "answers": [
+                      {
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><correct-answer-choice></div>\n"
+                      },
+                      {
+                        "correct": false,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><other-answer-choice></div>\n"
+                      },
+                      {
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        },
+                        "text": "<div><another-correct-answer-choice></div>\n"
+                      },
+                      {
+                        "text": "\\alpha",
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "text": "\\beta",
+                        "correct": false,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "text": "\\alpha",
+                        "correct": true,
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      }
+                    ],
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100
+                      }
+                    ],
+                    "behaviour": {
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "enableCheckButton": true,
+                      "type": "auto",
+                      "singlePoint": false,
+                      "randomAnswers": true,
+                      "showSolutionsRequiresInput": true,
+                      "confirmCheckDialog": false,
+                      "confirmRetryDialog": false,
+                      "autoCheck": false,
+                      "passPercentage": 100,
+                      "showScorePoints": true
+                    },
+                    "UI": {
+                      "checkAnswerButton": "Check",
+                      "showSolutionButton": "Show solution",
+                      "tryAgainButton": "Retry",
+                      "tipsLabel": "Show tip",
+                      "scoreBarLabel": "You got :num out of :total points",
+                      "tipAvailable": "Tip available",
+                      "feedbackAvailable": "Feedback available",
+                      "readFeedback": "Read feedback",
+                      "wrongAnswer": "Wrong answer",
+                      "correctAnswer": "Correct answer",
+                      "shouldCheck": "Should have been checked",
+                      "shouldNotCheck": "Should not have been checked",
+                      "noInput": "Please answer before viewing the solution"
+                    },
+                    "confirmCheck": {
+                      "header": "Finish ?",
+                      "body": "Are you sure you wish to finish ?",
+                      "cancelLabel": "Cancel",
+                      "confirmLabel": "Finish"
+                    },
+                    "confirmRetry": {
+                      "header": "Retry ?",
+                      "body": "Are you sure you wish to retry ?",
+                      "cancelLabel": "Cancel",
+                      "confirmLabel": "Confirm"
+                    },
+                    "question": "<p><question-title></p>\n"
+                  }
                 }
               ],
-              "overallFeedback": [
-                {
-                  "from": 0,
-                  "to": 100
+              "introPage": {
+                "showIntroPage": true,
+                "startButtonText": "Start Quiz",
+                "introduction": "<p>Passing&nbsp;this test will certify you as a berry expert.&nbsp;</p>\n\n<p>You need 80 % correct to pass. Good luck!</p>\n",
+                "title": "Berry quiz"
+              },
+              "texts": {
+                "prevButton": "Previous",
+                "nextButton": "Next",
+                "finishButton": "Finish",
+                "textualProgress": "Question: @current of @total questions"
+              },
+              "endGame": {
+                "showResultPage": true,
+                "message": "Your result:",
+                "solutionButtonText": "Show solution",
+                "finishButtonText": "Finish",
+                "showAnimations": false,
+                "skippable": false,
+                "skipButtonText": "Skip video",
+                "overallFeedback": [
+                  {
+                    "from": 0,
+                    "to": 100,
+                    "feedback": "You got @score points of @total possible."
+                  }
+                ],
+                "oldFeedback": {
+                  "successGreeting": "Congratulations!",
+                  "successComment": "You did very well!",
+                  "failGreeting": "Oh, no!",
+                  "failComment": "This didn't go so well."
                 }
-              ],
-              "behaviour": {
-                "enableRetry": true,
-                "enableSolutionsButton": true,
-                "enableCheckButton": true,
-                "type": "auto",
-                "singlePoint": false,
-                "randomAnswers": true,
-                "showSolutionsRequiresInput": true,
-                "confirmCheckDialog": false,
-                "confirmRetryDialog": false,
-                "autoCheck": false,
-                "passPercentage": 100,
-                "showScorePoints": true
               },
-              "UI": {
-                "checkAnswerButton": "Check",
-                "showSolutionButton": "Show solution",
-                "tryAgainButton": "Retry",
-                "tipsLabel": "Show tip",
-                "scoreBarLabel": "You got :num out of :total points",
-                "tipAvailable": "Tip available",
-                "feedbackAvailable": "Feedback available",
-                "readFeedback": "Read feedback",
-                "wrongAnswer": "Wrong answer",
-                "correctAnswer": "Correct answer",
-                "shouldCheck": "Should have been checked",
-                "shouldNotCheck": "Should not have been checked",
-                "noInput": "Please answer before viewing the solution"
-              },
-              "confirmCheck": {
-                "header": "Finish ?",
-                "body": "Are you sure you wish to finish ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Finish"
-              },
-              "confirmRetry": {
-                "header": "Retry ?",
-                "body": "Are you sure you wish to retry ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Confirm"
-              },
-              "question": "Which of the following are dinosaurs?"
+              "backgroundImage": {
+                "path": "<image-path-relative-to-content-directory>",
+                "mime": "image/jpeg",
+                "copyright": {
+                  "license": "U"
+                },
+                "width": 1280,
+                "height": 972
+              }
             },
             "subContentId": "",
             "metadata": {
-              "contentType": "Multiple Choice",
+              "contentType": "Question Set",
               "license": "U",
-              "title": ""
+              "title": "<question-set-title>"
             }
           },
           "pause": true,
@@ -228,9 +683,9 @@
               "allowOptOut": false,
               "message": ""
             },
-            "requireCompletion": false
+            "requireCompletion": true
           },
-          "label": "Which of the following are dinosaurs?"
+          "label": "Question Set"
         },
         {
           "x": 47.826086956521735,
@@ -238,99 +693,223 @@
           "width": 10,
           "height": 10,
           "duration": {
-            "from": 20.0,
-            "to": 20.0
+            "from": 34.0,
+            "to": 36.0
           },
-          "libraryTitle": "Multiple Choice",
+          "libraryTitle": "Question Set",
           "action": {
-            "library": "H5P.MultiChoice 1.14",
+            "library": "H5P.QuestionSet 1.17",
             "params": {
-              "media": {
-                "disableImageZooming": false
-              },
-              "answers": [
+              "progressType": "textual",
+              "passPercentage": 100,
+              "questions": [
                 {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
+                  "params": {
+                    "answers": [
+                      {
+                        "correct": false,
+                        "text": "<div>Test</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": true,
+                        "text": "<div>Multiple Choice</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      },
+                      {
+                        "correct": false,
+                        "text": "<div>Question</div>\n",
+                        "tipsAndFeedback": {
+                          "tip": "",
+                          "chosenFeedback": "",
+                          "notChosenFeedback": ""
+                        }
+                      }
+                    ],
+                    "UI": {
+                      "showSolutionButton": "Show solution",
+                      "tryAgainButton": "Try again",
+                      "checkAnswerButton": "Check"
+                    },
+                    "question": "<p><test-question></p>\n",
+                    "behaviour": {
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "singlePoint": true,
+                      "randomAnswers": true,
+                      "showSolutionsRequiresInput": true
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 0,
+                        "feedback": "Wrong!"
+                      },
+                      {
+                        "from": 1,
+                        "to": 99,
+                        "feedback": "Almost!"
+                      },
+                      {
+                        "from": 100,
+                        "to": 100,
+                        "feedback": "Correct!"
+                      }
+                    ]
                   },
-                  "text": "<div>\\alpha</div>\n"
+                  "library": "H5P.MultiChoice 1.14",
+                  "subContentId": "b9298312-0b79-4774-8ff7-a047d49afdb4",
+                  "metadata": {
+                    "title": "What color does the blackcurrant berry actually have?\n",
+                    "license": "U"
+                  }
                 },
                 {
-                  "correct": false,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
+                  "params": {
+                    "questions": [
+                      "<p>Test</p>\n",
+                      "<p>Single Choice</p>\n",
+                      "<p>Question</p>\n"
+                    ],
+                    "showSolutions": "Show solutions",
+                    "tryAgain": "Try again",
+                    "checkAnswer": "Check",
+                    "notFilledOut": "Please fill in all blanks",
+                    "text": "<p>Fill in the missing text about Strawberries!</p>\n",
+                    "behaviour": {
+                      "enableSolutionsButton": true,
+                      "autoCheck": false,
+                      "caseSensitive": false,
+                      "showSolutionsRequiresInput": true,
+                      "separateLines": false
+                    },
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100,
+                        "feedback": "You got @score of @total blanks correct."
+                      }
+                    ]
                   },
-                  "text": "<div>\\beta</div>\n"
+                  "library": "H5P.Blanks 1.12",
+                  "subContentId": "ed9a5c87-548e-4ed3-bf06-490269abf1c2",
+                  "metadata": {
+                    "title": "<test-question-title>\n",
+                    "license": "U"
+                  }
                 },
                 {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
+                  "library": "H5P.SingleChoiceSet 1.11",
+                  "params": {
+                    "choices": [
+                      {
+                        "subContentId": "",
+                        "question": "Which one prints 3?",
+                        "answers": [
+                          "<p>`</p>\n",
+                          "<p>`</p>\n",
+                          "<p>`</p>\n"
+                        ]
+                      },
+                      {
+                        "subContentId": ""
+                      }
+                    ],
+                    "overallFeedback": [
+                      {
+                        "from": 0,
+                        "to": 100
+                      }
+                    ],
+                    "behaviour": {
+                      "autoContinue": true,
+                      "timeoutCorrect": 2000,
+                      "timeoutWrong": 3000,
+                      "soundEffectsEnabled": true,
+                      "enableRetry": true,
+                      "enableSolutionsButton": true,
+                      "passPercentage": 100
+                    },
+                    "l10n": {
+                      "nextButtonLabel": "Next question",
+                      "showSolutionButtonLabel": "Show solution",
+                      "retryButtonLabel": "Retry",
+                      "solutionViewTitle": "Solution list",
+                      "correctText": "Correct!",
+                      "incorrectText": "Incorrect!",
+                      "muteButtonLabel": "Mute feedback sound",
+                      "closeButtonLabel": "Close",
+                      "slideOfTotal": "Slide :num of :total",
+                      "scoreBarLabel": "You got :num out of :total points",
+                      "solutionListQuestionNumber": "Question :num"
+                    },
+                    "question": "<p>Which one prints 3?</p>\n"
                   },
-                  "text": "<div>\\alpha</div>\n"
+                  "subContentId": "",
+                  "metadata": {
+                    "contentType": "Single Choice Question",
+                    "license": "U",
+                    "title": "<question-title>"
+                  }
                 }
               ],
-              "overallFeedback": [
-                {
-                  "from": 0,
-                  "to": 100
+              "introPage": {
+                "showIntroPage": true,
+                "startButtonText": "Start Quiz",
+                "introduction": "<p>Passing&nbsp;this test will certify you as a berry expert.&nbsp;</p>\n\n<p>You need 80 % correct to pass. Good luck!</p>\n",
+                "title": "Berry quiz"
+              },
+              "texts": {
+                "prevButton": "Previous",
+                "nextButton": "Next",
+                "finishButton": "Finish",
+                "textualProgress": "Question: @current of @total questions"
+              },
+              "endGame": {
+                "showResultPage": true,
+                "message": "Your result:",
+                "solutionButtonText": "Show solution",
+                "finishButtonText": "Finish",
+                "showAnimations": false,
+                "skippable": false,
+                "skipButtonText": "Skip video",
+                "overallFeedback": [
+                  {
+                    "from": 0,
+                    "to": 100,
+                    "feedback": "You got @score points of @total possible."
+                  }
+                ],
+                "oldFeedback": {
+                  "successGreeting": "Congratulations!",
+                  "successComment": "You did very well!",
+                  "failGreeting": "Oh, no!",
+                  "failComment": "This didn't go so well."
                 }
-              ],
-              "behaviour": {
-                "enableRetry": true,
-                "enableSolutionsButton": true,
-                "enableCheckButton": true,
-                "type": "auto",
-                "singlePoint": false,
-                "randomAnswers": true,
-                "showSolutionsRequiresInput": true,
-                "confirmCheckDialog": false,
-                "confirmRetryDialog": false,
-                "autoCheck": false,
-                "passPercentage": 100,
-                "showScorePoints": true
               },
-              "UI": {
-                "checkAnswerButton": "Check",
-                "showSolutionButton": "Show solution",
-                "tryAgainButton": "Retry",
-                "tipsLabel": "Show tip",
-                "scoreBarLabel": "You got :num out of :total points",
-                "tipAvailable": "Tip available",
-                "feedbackAvailable": "Feedback available",
-                "readFeedback": "Read feedback",
-                "wrongAnswer": "Wrong answer",
-                "correctAnswer": "Correct answer",
-                "shouldCheck": "Should have been checked",
-                "shouldNotCheck": "Should not have been checked",
-                "noInput": "Please answer before viewing the solution"
-              },
-              "confirmCheck": {
-                "header": "Finish ?",
-                "body": "Are you sure you wish to finish ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Finish"
-              },
-              "confirmRetry": {
-                "header": "Retry ?",
-                "body": "Are you sure you wish to retry ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Confirm"
-              },
-              "question": "Which symbols are \"alpha\"?"
+              "backgroundImage": {
+                "path": "<image-path-relative-to-content-directory>",
+                "mime": "image/jpeg",
+                "copyright": {
+                  "license": "U"
+                },
+                "width": 1280,
+                "height": 972
+              }
             },
             "subContentId": "",
             "metadata": {
-              "contentType": "Multiple Choice",
+              "contentType": "Question Set",
               "license": "U",
-              "title": ""
+              "title": "<question-set-title>"
             }
           },
           "pause": true,
@@ -345,132 +924,15 @@
               "allowOptOut": false,
               "message": ""
             },
-            "requireCompletion": false
+            "requireCompletion": true
           },
-          "label": "Which symbols are \"alpha\"?"
-        },
-        {
-          "x": 47.826086956521735,
-          "y": 46.13821138211382,
-          "width": 10,
-          "height": 10,
-          "duration": {
-            "from": 20.0,
-            "to": 20.0
-          },
-          "libraryTitle": "Multiple Choice",
-          "action": {
-            "library": "H5P.MultiChoice 1.14",
-            "params": {
-              "media": {
-                "disableImageZooming": false
-              },
-              "answers": [
-                {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
-                  },
-                  "text": "<div>\\alpha</div>\n"
-                },
-                {
-                  "correct": false,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
-                  },
-                  "text": "<div>\\beta</div>\n"
-                },
-                {
-                  "correct": true,
-                  "tipsAndFeedback": {
-                    "tip": "",
-                    "chosenFeedback": "",
-                    "notChosenFeedback": ""
-                  },
-                  "text": "<div>\\alpha</div>\n"
-                }
-              ],
-              "overallFeedback": [
-                {
-                  "from": 0,
-                  "to": 100
-                }
-              ],
-              "behaviour": {
-                "enableRetry": true,
-                "enableSolutionsButton": true,
-                "enableCheckButton": true,
-                "type": "auto",
-                "singlePoint": false,
-                "randomAnswers": true,
-                "showSolutionsRequiresInput": true,
-                "confirmCheckDialog": false,
-                "confirmRetryDialog": false,
-                "autoCheck": false,
-                "passPercentage": 100,
-                "showScorePoints": true
-              },
-              "UI": {
-                "checkAnswerButton": "Check",
-                "showSolutionButton": "Show solution",
-                "tryAgainButton": "Retry",
-                "tipsLabel": "Show tip",
-                "scoreBarLabel": "You got :num out of :total points",
-                "tipAvailable": "Tip available",
-                "feedbackAvailable": "Feedback available",
-                "readFeedback": "Read feedback",
-                "wrongAnswer": "Wrong answer",
-                "correctAnswer": "Correct answer",
-                "shouldCheck": "Should have been checked",
-                "shouldNotCheck": "Should not have been checked",
-                "noInput": "Please answer before viewing the solution"
-              },
-              "confirmCheck": {
-                "header": "Finish ?",
-                "body": "Are you sure you wish to finish ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Finish"
-              },
-              "confirmRetry": {
-                "header": "Retry ?",
-                "body": "Are you sure you wish to retry ?",
-                "cancelLabel": "Cancel",
-                "confirmLabel": "Confirm"
-              },
-              "question": "Which symbols are \"alpha\"?"
-            },
-            "subContentId": "",
-            "metadata": {
-              "contentType": "Multiple Choice",
-              "license": "U",
-              "title": ""
-            }
-          },
-          "pause": true,
-          "displayType": "button",
-          "buttonOnMobile": false,
-          "adaptivity": {
-            "correct": {
-              "allowOptOut": false,
-              "message": ""
-            },
-            "wrong": {
-              "allowOptOut": false,
-              "message": ""
-            },
-            "requireCompletion": false
-          },
-          "label": "Which symbols are \"alpha\"?"
+          "label": "Question Set"
         }
       ],
       "endscreens": [
         {
-          "time": "[REQ integer time in seconds] maybe",
-          "label": "6:33 maybe"
+          "time": "",
+          "label": ""
         }
       ]
     },
